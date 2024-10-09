@@ -2,6 +2,7 @@ package com.thiagomattos.business;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -63,6 +64,24 @@ public class ListTest {
         // When / Act & Then / Assert
         assertEquals("Thiago", list.get(anyInt()));
         assertEquals("Thiago", list.get(anyInt()));
+    }
+    @Test
+    void testMocckingList_When_ThrowsAnException() {
+    	
+    	// Given / Arrange
+    	var list = mock(List.class);
+    	
+    	// If you are using argument matchers, all arguments
+    	// have to be provided by matchers.
+    	when(list.get(anyInt())).thenThrow(new RuntimeException("Test!"));
+    	
+    	// When / Act & Then / Assert
+    	assertThrows(RuntimeException.class, 
+    			() -> { 
+    			// When / Act
+    				list.get(anyInt());
+    			}, 
+    			() -> "Should have throw a RuntimeException");
     }
 
 }
