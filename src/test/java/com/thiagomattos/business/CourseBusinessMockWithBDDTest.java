@@ -1,14 +1,19 @@
 package com.thiagomattos.business;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import com.thiagomattos.service.CourseService;
@@ -54,5 +59,31 @@ class CourseBusinessMockWithBDDTest {
         
         // Then / Assert
         assertThat(filteredCourses.size(), is(4));
+    }
+    
+    // test[System Under Test]_[Condition or State Change]_[Expected Result]
+    @DisplayName("Delete Courses not Related to Spring Using Mockito sould call Method deleteCourse")
+    @Test
+    void testDeleteCoursesNotRelatedToSpring_UsingMockitoVerify_Should_CallMethod_deleteCourse() {
+        
+        // Given / Arrange
+        given(mockService.retrieveCourses("Leandro"))
+            .willReturn(courses);
+        
+        // When / Act
+        business.deleteCoursesNotRelatedToSpring("Leandro");
+        
+        // Then / Assert
+        // verify(mockService)
+        //    .deleteCourse("Agile Desmistificado com Scrum, XP, Kanban e Trello");
+        // verify(mockService, times(1))
+        //    .deleteCourse("Agile Desmistificado com Scrum, XP, Kanban e Trello");
+        // verify(mockService, atLeast(1))
+        verify(mockService, atLeastOnce())
+            .deleteCourse("Agile Desmistificado com Scrum, XP, Kanban e Trello");
+        verify(mockService)
+            .deleteCourse("Arquitetura de Microsserviços do 0 com ASP.NET, .NET 6 e C#");
+        verify(mockService, never())
+            .deleteCourse("REST API's RESTFul do 0 à AWS com Spring Boot 3 Java e Docker");
     }
 }
