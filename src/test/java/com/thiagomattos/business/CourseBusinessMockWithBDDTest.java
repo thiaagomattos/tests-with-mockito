@@ -51,12 +51,12 @@ class CourseBusinessMockWithBDDTest {
     void testCoursesRelatedToSpring_When_UsingAMock() {
         
         // Given / Arrange
-        when(mockService.retrieveCourses("Leandro"))
+        when(mockService.retrieveCourses("Lucas"))
             .thenReturn(courses);
             
         // When / Act
         var filteredCourses =
-            business.retriveCoursesRelatedToSpring("Leandro");
+            business.retriveCoursesRelatedToSpring("Lucas");
         
         // Then / Assert
         assertThat(filteredCourses.size(), is(4));
@@ -68,7 +68,7 @@ class CourseBusinessMockWithBDDTest {
     void testDeleteCoursesNotRelatedToSpring_UsingMockitoVerify_Should_CallMethod_deleteCourse() {
         
         // Given / Arrange
-        given(mockService.retrieveCourses("Leandro"))
+        given(mockService.retrieveCourses("Lucas"))
             .willReturn(courses);
         
         String agileCourse = "Agile Desmistificado com Scrum, XP, Kanban e Trello";
@@ -76,7 +76,7 @@ class CourseBusinessMockWithBDDTest {
         String restSpringCourse = "REST API's RESTFul do 0 à AWS com Spring Boot 3 Java e Docker";
         
         // When / Act
-        business.deleteCoursesNotRelatedToSpring("Leandro");
+        business.deleteCoursesNotRelatedToSpring("Lucas");
         
         // Then / Assert
         /**verify(mockService).deleteCourse(agileCourse);
@@ -103,7 +103,7 @@ class CourseBusinessMockWithBDDTest {
             );
             */
         
-        given(mockService.retrieveCourses("Leandro"))
+        given(mockService.retrieveCourses("Lucas"))
             .willReturn(courses);
         
         ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass(String.class);
@@ -111,7 +111,7 @@ class CourseBusinessMockWithBDDTest {
         //String agileCourse = "Agile Desmistificado com Scrum, XP, Kanban e Trello";
         
         // When / Act
-        business.deleteCoursesNotRelatedToSpring("Leandro");
+        business.deleteCoursesNotRelatedToSpring("Lucas");
         
         // then(mockService).should().deleteCourse(argumentCaptor.capture());
         // assertThat(argumentCaptor.getValue(), is(agileCourse));
